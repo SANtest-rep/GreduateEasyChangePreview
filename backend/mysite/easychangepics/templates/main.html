@@ -1,0 +1,248 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <title>EasyChange</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+</head>
+<body>
+    <header class="header disable">
+            <a href="#" class="header__logo">
+                <h2 class="header__logo__first-word">Easy</h2>
+                <h2 class="header__logo__second-word">Change</h2>
+            </a>
+
+            <div class="header__buttons">
+                <input type="file" id="uploadImage" class="input-image" accept="image/*" hidden>
+                <button type="button" id="saveImageButton" class="header__buttons__button-save button">Скачать</button>
+                <button type="button" id="sendBtn" class="header__buttons__button-send button">
+                    Отправить
+                    <i class="fab fa-telegram" style="font-size: 120%;margin: 0.5rem;"></i>
+                </button>
+                <button type="button" id="logoutBtn" class="header__buttons__button-logout button">
+                    Выйти
+                </button>
+                <button type="button" class="header__buttons__button-choose button">Выбрать</button>
+                <button type="button" id="resetFiltersButton" class="header__buttons__button-reset button">Сбросить фильтры</button>
+                <button type="button" id="resetZoomButton" class="header__buttons__button-reset button">Сбросить приближение</button>
+            </div>
+        
+    </header>
+
+    <main class="wrapper disable">
+
+        <div class="wrapper__sidebar-left">
+            <nav class="wrapper__sidebar-left__filter-variations" style="padding-left: 15px;">
+                <br>
+               <button type="button" class="wrapper__sidebar-left__filter-variations__button-filters button" style="width: 100px;">Фильтры</button> 
+               <br>
+               <button type="button" class="wrapper__sidebar-left__filter-variations__button-cut button" style="width: 100px;">Обрезка</button> 
+               <br>
+               <button type="button" class="wrapper__sidebar-left__filter-variations__button-rotate button" style="width: 100px;">Поворот</button>
+               <br>
+               <button type="button" class="wrapper__sidebar-left__filter-variations__button-text button" style="width: 100px;">Текст</button> 
+            </nav>
+            <div class="wrapper__sidebar-left__filter-content">
+                <div class="wrapper__sidebar-left__filter-content__filters-option" >Настройка
+                    <br><br>
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__brightness">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__brightness__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__brightness__info__name">Яркость</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__brightness__info__amount">100%</p>
+                        </div>
+                        <input type="range" value="100" min="0" max="200" class="wrapper__sidebar-left__filter-content__filters-option__brightness__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__saturation">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__saturation__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__saturation__info__name">Насыщенность</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__saturation__info__amount">100%</p>
+                        </div>
+                        <input type="range" value="100" min="0" max="300" class="wrapper__sidebar-left__filter-content__filters-option__saturation__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__contrast">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__contrast__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__contrast__info__name">Контраст</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__contrast__info__amount">100%</p>
+                        </div>
+                        <input type="range" value="100" min="0" max="200" class="wrapper__sidebar-left__filter-content__filters-option__contrast__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__sepia">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__sepia__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__sepia__info__name">Сепия</p>
+                        </div>
+                        <input type="checkbox" class="wrapper__sidebar-left__filter-content__filters-option__sepia__checkbox">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__blur">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__blur__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__blur__info__name">Блюр</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__blur__info__amount">0</p>
+                        </div>
+                        <input type="range" value="0" min="0" max="100" step="0.30" class="wrapper__sidebar-left__filter-content__filters-option__blur__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__inversion">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__inversion__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__inversion__info__name">Инверсия</p>
+                        </div>
+                        <input type="checkbox" class="wrapper__sidebar-left__filter-content__filters-option__inversion__checkbox">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__grayscale">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__grayscale__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__grayscale__info__name">Оттенки серого</p>
+                        </div>
+                        <input type="checkbox" class="wrapper__sidebar-left__filter-content__filters-option__grayscale__checkbox">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__hue">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__hue__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__hue__info__name">Оттенки</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__hue__info__amount">0°</p>
+                        </div>
+                        <input type="range" value="0" min="0" max="360" class="wrapper__sidebar-left__filter-content__filters-option__hue__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__noise">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__noise__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__noise__info__name">Шум</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__noise__info__amount">0%</p>
+                        </div>
+                        <input type="range" value="0" min="0" max="100" class="wrapper__sidebar-left__filter-content__filters-option__noise__slider">
+                    </div>
+
+                    <div class="wrapper__sidebar-left__filter-content__filters-option__sharpen">
+                        <div class="wrapper__sidebar-left__filter-content__filters-option__sharpen__info">
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__sharpen__info__name">Резкость</p>
+                            <p class="wrapper__sidebar-left__filter-content__filters-option__sharpen__info__amount">0%</p>
+                        </div>
+                        <input type="range" value="0" min="0" max="200" class="wrapper__sidebar-left__filter-content__filters-option__sharpen__slider">
+                    </div>
+
+                    <!-- <br><br> -->
+                    <!-- Пресеты <br><br> -->
+                    <!-- <button class="normal-btn presets button" onclick="{applyPreset(presets.normal)}">Normal</button>
+                    <button class="_1977-btn presets" onclick="{applyPreset(presets._1977)}">1977</button>
+                    <button class="aden-btn presets" onclick="{applyPreset(presets.aden)}">aden</button>
+                    <button class="amaro-btn presets" onclick="{applyPreset(presets.amaro)}">amaro</button>
+                    <button class="ashby-btn presets" onclick="{applyPreset(presets.ashby)}">ashby</button>
+                    <button class="brannan-btn presets" onclick="{applyPreset(presets.brannan)}">brannan</button>
+                    <button class="charmes-btn presets" onclick="{applyPreset(presets.charmes)}">charmes</button>
+                    <button class="clarendon-btn presets" onclick="{applyPreset(presets.clarendon)}">clarendon</button>
+                    <button class="crema-btn presets" onclick="{applyPreset(presets.crema)}">crema</button>
+                    <button class="dogpatch-btn presets" onclick="{applyPreset(presets.dogpatch)}">dogpatch</button>
+                    <button class="earlybird-btn presets" onclick="{applyPreset(presets.earlybird)}">earlybird</button>
+                    <button class="gingham-btn presets" onclick="{applyPreset(presets.gingham)}">gingham</button>
+                    <button class="ginza-btn presets" onclick="{applyPreset(presets.ginza)}">ginza</button>
+                    <button class="hefe-btn presets" onclick="{applyPreset(presets.hefe)}">hefe</button>
+                    <button class="helena-btn presets" onclick="{applyPreset(presets.helena)}">helena</button>
+                    <button class="hudson-btn presets" onclick="{applyPreset(presets.hudson)}">hudson</button>
+                    <button class="inkwell-btn presets" onclick="{applyPreset(presets.inkwell)}">inkwell</button>
+                    <button class="juno-btn presets" onclick="{applyPreset(presets.juno)}">juno</button>
+                    <button class="kelvin-btn presets" onclick="{applyPreset(presets.kelvin)}">kelvin</button>
+                    <button class="lark-btn presets" onclick="{applyPreset(presets.lark)}">lark</button>
+                    <button class="lofi-btn presets" onclick="{applyPreset(presets.lofi)}">lofi</button>
+                    <button class="ludwig-btn presets" onclick="{applyPreset(presets.ludwig)}">ludwig</button>
+                    <button class="maven-btn presets" onclick="{applyPreset(presets.maven)}">maven</button>
+                    <button class="mayfair-btn presets" onclick="{applyPreset(presets.mayfair)}">mayfair</button>
+                    <button class="moon-btn presets" onclick="{applyPreset(presets.moon)}">moon</button>
+                    <button class="nashville-btn presets" onclick="{applyPreset(presets.nashville)}">nashville</button>
+                    <button class="perpetua-btn presets" onclick="{applyPreset(presets.perpetua)}">perpetua</button>
+                    <button class="poprocket-btn presets" onclick="{applyPreset(presets.poprocket)}">poprocket</button>
+                    <button class="reyes-btn presets" onclick="{applyPreset(presets.reyes)}">reyes</button>
+                    <button class="rise-btn presets" onclick="{applyPreset(presets.rise)}">rise</button>
+                    <button class="sierra-btn presets" onclick="{applyPreset(presets.sierra)}">sierra</button>
+                    <button class="skyline-btn presets" onclick="{applyPreset(presets.skyline)}">skyline</button>
+                    <button class="slumber-btn presets" onclick="{applyPreset(presets.slumber)}">slumber</button>
+                    <button class="stinson-btn presets" onclick="{applyPreset(presets.stinson)}">stinson</button>
+                    <button class="sutro-btn presets" onclick="{applyPreset(presets.sutro)}">sutro</button>
+                    <button class="toaster-btn presets" onclick="{applyPreset(presets.toaster)}">toaster</button>
+                    <button class="valencia-btn presets" onclick="{applyPreset(presets.valencia)}">valencia</button>
+                    <button class="vesper-btn presets" onclick="{applyPreset(presets.vesper)}">vesper</button>
+                    <button class="walden-btn presets" onclick="{applyPreset(presets.walden)}">walden</button>
+                    <button class="willow-btn presets" onclick="{applyPreset(presets.willow)}">willow</button>
+                    <button class="xpro-btn presets" onclick="{applyPreset(presets.xpro)}">xpro</button>
+                     -->
+                    
+                </div>
+
+                <div class="wrapper__sidebar-left__filter-content__cut-option" hidden>Обрезка-в
+                    <button id="cropButton">Crop Image</button>
+                    <button id="confirmCropButton" style="display: none;">Confirm Crop</button>
+                    <button id="cancelCropButton" style="display: none;">Cancel Crop</button>
+
+                </div>
+
+                
+
+                <div class="wrapper__sidebar-left__filter-content__rotate-option" hidden>
+                    <button id="rotateButton">Rotate Image</button>
+                    <button id="flipHButton">Flip Horizontal</button>
+                    <button id="flipVButton">Flip Vertical</button>
+
+                </div>
+
+                <div class="wrapper__sidebar-left__filter-content__text-option" hidden>Текст-в
+                    
+                    <button id="addTextButton">Add Text</button>
+                    <button id="deleteTextButton">Delete Selected Text</button>
+                    <label for="textColorPicker">Text Color:</label>
+                    <input type="color" id="textColorPicker">
+                
+                
+                    <label for="fontSizeSlider">Font Size:</label>
+                    <input type="range" id="fontSizeSlider" min="10" max="100" value="20">
+                    <span id="fontSizeValue">20</span>
+                
+                
+                    <label for="fontFamilySelector">Font Family:</label>
+                    <select id="fontFamilySelector">
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Palatino">Palatino</option>
+                        <option value="Garamond">Garamond</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Impact">Impact</option>
+                    </select>
+                
+                
+                    <button id="boldButton">Bold</button>
+                    <button id="italicButton">Italic</button>
+                    <button id="underlineButton">Underline</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper__main-content">
+            <div id="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div id="cropper-container">
+                <img id="tempImage">
+            </div>
+        </div>
+        
+    </main>
+
+
+    <!-- <script src="./js/diplom_index.js"></script> -->
+    {% csrf_token %}
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
