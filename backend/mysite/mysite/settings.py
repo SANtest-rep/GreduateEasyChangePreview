@@ -157,11 +157,11 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '6986957017',
-            'secret': '6986957017:AAHRkJtMq0I6SIF68sp1u3s3uIlH-lceug4',
+            'client_id': '',
+            'secret': '',
             'key': ''
         }
     }
 }
-TELEGRAM_BOT_TOKEN = '6986957017:AAHRkJtMq0I6SIF68sp1u3s3uIlH-lceug4'
+TELEGRAM_BOT_TOKEN = ''
 SOCIALACCOUNT_STORE_TOKENS = True
