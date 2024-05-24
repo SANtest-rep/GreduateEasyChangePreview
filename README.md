@@ -21,7 +21,7 @@ requirements:
       sniffio==1.3.1
       sqlparse==0.5.0
       Werkzeug==3.0.2<br />
-В папке C:\Windows\System32\drivers\etc добавить к hosts добавить в последней строке: 127.0.0.1 easychangepics.com <br />
+В папке C:\Windows\System32\drivers\etc добавить к hosts добавить в последней строке: <br /> 127.0.0.1 easychangepics.com <br />
 Путь запуска DIPLOMPREVIW\backend\mysite - Здесь находится manage.py <br /> 
 python manage.py runserver_plus --cert-file cert.crt 0.0.0.0:443 <br /> 
 https://easychangepics.com/app/
